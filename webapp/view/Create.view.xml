@@ -1,0 +1,44 @@
+<mvc:View controllerName="com.oetker.demo.controller.Create" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc"
+	xmlns:footerbar="sap.ushell.ui.footerbar" xmlns:f="sap.ui.layout.form">
+	<Page id="page" navButtonPress="onNavBack" showNavButton="{device>/system/phone}" title="Create New Business Partner">
+		<content>
+			<f:SimpleForm>
+				<Label text="Company Name"></Label>
+				<Input value="{newPartner>/CompanyName}"></Input>
+				<Label text="Business Partner Role"></Label>
+				<Input value="{newPartner>/BpRole}"></Input>
+				<Label text="Legal Form"></Label>
+				<Input value="{newPartner>/LegalForm}"></Input>
+				<Label text="Currency Code"></Label>
+				<Input value="{newPartner>/CurrencyCode}"></Input>
+				<Label text="Street"></Label>
+				<Input value="{newPartner>/Street}"></Input>
+				<Label text="Building"></Label>
+				<Input value="{newPartner>/Building}"></Input>
+				<Label text="City"></Label>
+				<Input value="{newPartner>/City}"></Input>
+				<Label text="PostalCode"></Label>
+				<Input value="{newPartner>/PostalCode}"></Input>
+				<Label text="Country"></Label>
+				<Input value="{newPartner>/Country}"></Input>
+				<Label text="Email Address"></Label>
+				<Input value="{newPartner>/EmailAddress}"></Input>
+				<Label text="Phone Number"></Label>
+				<Input value="{newPartner>/PhoneNumber}"></Input>
+				<Label text="Fax Number"></Label>
+				<Input value="{newPartner>/FaxNumber}"></Input>
+				<Label text="Web Address"></Label>
+				<Input value="{newPartner>/WebAddress}"></Input>
+				<Label text="Address Type"></Label>
+				<Input value="{newPartner>/AddressType}"></Input>
+			</f:SimpleForm>
+		</content>
+		<footer>
+			<OverflowToolbar id="footerToolbar">
+				<ToolbarSpacer/>
+				<Button text="Save" type="Accept" press="onSave"></Button>
+				<Button text="Cancel" type="Reject" press="onCancel"></Button>
+			</OverflowToolbar>
+		</footer>
+	</Page>
+</mvc:View>

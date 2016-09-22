@@ -1,0 +1,83 @@
+<mvc:View controllerName="com.oetker.demo.controller.Detail" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc"
+	xmlns:footerbar="sap.ushell.ui.footerbar" xmlns:f="sap.ui.layout.form">
+	<Page id="page" navButtonPress="onNavBack" showNavButton="{device>/system/phone}" title="{i18n>detailTitle} {CompanyName}"
+		busy="{detailView>/busy}" busyIndicatorDelay="{detailView>/delay}">
+		<content>
+			<ObjectHeader id="objectHeader" title="{CompanyName}"></ObjectHeader>
+			<f:SimpleForm>
+				<Label text="Business Partner Id"></Label>
+				<Text text="{BpId}"></Text>
+				<Label text="Business Partner Role"></Label>
+				<Text text="{BpRole}"></Text>
+				<Label text="Legal Form"></Label>
+				<Text text="{LegalForm}"></Text>
+				<Label text="Currency Code"></Label>
+				<Text text="{CurrencyCode}"></Text>
+				<Label text="Street"></Label>
+				<Text text="{Street}"></Text>
+				<Label text="Building"></Label>
+				<Text text="{Building}"></Text>
+				<Label text="City"></Label>
+				<Text text="{City}"></Text>
+				<Label text="PostalCode"></Label>
+				<Text text="{PostalCode}"></Text>
+				<Label text="Country"></Label>
+				<Text text="{Country}"></Text>
+				<Label text="Email Address"></Label>
+				<Text text="{EmailAddress}"></Text>
+				<Label text="Phone Number"></Label>
+				<Text text="{PhoneNumber}"></Text>
+				<Label text="Fax Number"></Label>
+				<Text text="{FaxNumber}"></Text>
+				<Label text="Web Address"></Label>
+				<Text text="{WebAddress}"></Text>
+				<Label text="Address Type"></Label>
+				<Text text="{AddressType}"></Text>
+				<Label text="Address Validity Start"></Label>
+				<Text text="{AddressValStartDate}"></Text>
+				<Label text="Address Validity End"></Label>
+				<Text text="{AddressValEndDate}"></Text>
+			</f:SimpleForm>
+			<Table id="lineItemsList" width="auto" items="{ProductSet}" updateFinished="onListUpdateFinished"
+				noDataText="{i18n>detailLineItemTableNoDataText}" busyIndicatorDelay="{detailView>/lineItemTableDelay}" class="sapUiResponsiveMargin">
+				<headerToolbar>
+					<Toolbar id="lineItemsToolbar">
+						<Title id="lineItemsHeader" text="{detailView>/lineItemListTitle}"/>
+					</Toolbar>
+				</headerToolbar>
+				<columns>
+					<Column>
+						<Text text="{i18n>detailLineItemTableIDColumn}"/>
+					</Column>
+					<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Right">
+						<Text text="{i18n>detailLineItemTableUnitNumberColumn}"/>
+					</Column>
+				</columns>
+				<items>
+					<ColumnListItem>
+						<cells>
+							<ObjectIdentifier title="{Name}" text="{ProductId}"/>
+							<ObjectNumber number="{ path: 'Price', formatter: '.formatter.currencyValue' }" unit="{CurrencyCode}"/>
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+		</content>
+		<footer>
+			<OverflowToolbar id="footerToolbar">
+				<ToolbarSpacer/>
+				<Button id="shareButton" tooltip="{i18n>shareTooltip}" icon="sap-icon://action" press="onSharePress">
+					<dependents>
+						<ActionSheet id="shareSheet" showCancelButton="true" placement="Top">
+							<buttons>
+								<Button id="shareEmail" icon="sap-icon://email" text="{i18n>shareSendEmail}" press="onShareEmailPress"/>
+								<Button id="shareInJam" icon="sap-icon://jam" text="{i18n>shareOnJamTitle}" press="onShareInJamPress" visible="{FLP>/isShareInJamActive}"/>
+								<footerbar:AddBookmarkButton id="shareTile" appData="{ path: 'detailView>/saveAsTileTitle', formatter: '.formatter.shareTileData' }"/>
+							</buttons>
+						</ActionSheet>
+					</dependents>
+				</Button>
+			</OverflowToolbar>
+		</footer>
+	</Page>
+</mvc:View>
