@@ -1,7 +1,8 @@
 <mvc:View controllerName="com.oetker.demo.controller.Create" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc"
-	xmlns:footerbar="sap.ushell.ui.footerbar" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core">
+	xmlns:footerbar="sap.ushell.ui.footerbar" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout">
 	<Page id="page" navButtonPress="onNavBack" showNavButton="{device>/system/phone}" title="Create New Business Partner">
 		<content>
+			<Input id="inputCountry" value="{newPartner>/Country}" visible="false"></Input>
 			<f:SimpleForm>
 				<Label text="Company Name"></Label>
 				<Input id="inputCompany" 
@@ -23,7 +24,6 @@
 				<Label text="PostalCode"></Label>
 				<Input value="{newPartner>/PostalCode}"></Input>
 				<Label text="Country"></Label>
-				<Input value="{newPartner>/Country}"></Input>
 				<ComboBox
 				  id="cbCountry"
 				  selectedKey="{newPartner>/Country}"

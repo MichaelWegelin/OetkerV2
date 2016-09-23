@@ -61,7 +61,7 @@ sap.ui.define([
 			var bValid = true;
 			var aControls = [
 				this.getView().byId("inputCompany"),
-				this.getView().byId("cbCountry")
+				this.getView().byId("inputCountry")
 				];
 				
 			jQuery.each(aControls, function(i,element) {
