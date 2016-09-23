@@ -6,8 +6,8 @@
 				<Label text="Company Name"></Label>
 				<Input id="inputCompany" 
 				    placeholder="Enter a company name"
-					value="{newPartner>/CompanyName}" 
-					valueStateText="At least 3 characters"></Input>
+					value="{path: 'newPartner>/CompanyName', type: 'sap.ui.model.type.String', constraints: {minLength: 1, maxLength:10}}" 
+					valueStateText="At least 1 character, at most 10 characters"></Input>
 				<Label text="Business Partner Role"></Label>
 				<Input value="{newPartner>/BpRole}"></Input>
 				<Label text="Legal Form"></Label>
@@ -25,6 +25,7 @@
 				<Label text="Country"></Label>
 				<Input value="{newPartner>/Country}"></Input>
 				<ComboBox
+				  id="cbCountry"
 				  selectedKey="{newPartner>/Country}"
 				  items="{countries>/countries}">
 					<core:Item key="{countries>code}" text="{countries>name}"></core:Item>

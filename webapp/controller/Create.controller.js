@@ -24,6 +24,19 @@ sap.ui.define([
 			};
 			var oCountryModel = new JSONModel(oCountries);
 			this.setModel(oCountryModel,"countries");
+			
+			sap.ui.getCore().attachValidationError(function(oEvent) {
+				var oControl = oEvent.getParameter("element");
+				if(oControl && oControl.setValueState) {
+					oControl.setValueState(sap.ui.core.ValueState.Error);
+				}
+			});
+			sap.ui.getCore().attachValidationSuccess(function(oEvent) {
+				var oControl = oEvent.getParameter("element");
+				if(oControl && oControl.setValueState) {
+					oControl.setValueState(sap.ui.core.ValueState.None);
+				}
+			});
 		},
 		
 		onSave: function(oEvent) {
@@ -46,18 +59,24 @@ sap.ui.define([
 		
 		_validate: function(oNewPartner) {
 			var bValid = true;
-			var oInputCompany = this.getView().byId("inputCompany");
+			var aControls = [
+				this.getView().byId("inputCompany"),
+				this.getView().byId("cbCountry")
+				];
+				
+			jQuery.each(aControls, function(i,element) {
+				if (element.getValue()) {
+					element.setValueState(sap.ui.core.ValueState.Error);
+				}
+			});
+
+			jQuery.each(aControls, function(i,element) {
+				if (element.getValueState && element.getValueSate() === sap.ui.core.valueState.Error) {
+					bValid = false;
+					return false;
+				}
+			});
 			
-			// does not work, do not know why
-			if (oInputCompany.getValueState()==="Error") {
-				bValid = false;
-			}
-			
-			// do it manually
-			if (!oInputCompany.getValue() || oInputCompany.getValue().length < 1 || oInputCompany.getValue() > 10) {
-				oInputCompany.setValueState(sap.ui.core.ValueState.Error);
-			  bValid = false;
-			}
 			return bValid;
 		},
 		
