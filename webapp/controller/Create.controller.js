@@ -15,10 +15,22 @@ sap.ui.define([
 
 		onInit: function() {
 			this.getRouter().getRoute("create").attachPatternMatched(this._onObjectMatched, this);
+			var oCountries = {
+				countries: [
+					{code: "DE", name: "Deutschland"},
+					{code: "US", name: "United States of America"},
+					{code: "PT", name: "Portugal"}
+					]
+			};
+			var oCountryModel = new JSONModel(oCountries);
+			this.setModel(oCountryModel,"countries");
 		},
 		
 		onSave: function(oEvent) {
 			var oNewPartner = this.getModel("newPartner").getData();
+			if (!this._validate(oNewPartner)) {
+				return;
+			}
 			var oModel = this.getOwnerComponent().getModel();
 			oModel.create("/BusinessPartnerSet", oNewPartner, {
 				success: function(oData, oResponse) {
@@ -30,6 +42,23 @@ sap.ui.define([
 					MessageBox.alert(oError.responseText);
 				}
 			});
+		},
+		
+		_validate: function(oNewPartner) {
+			var bValid = true;
+			var oInputCompany = this.getView().byId("inputCompany");
+			
+			// does not work, do not know why
+			if (oInputCompany.getValueState()==="Error") {
+				bValid = false;
+			}
+			
+			// do it manually
+			if (!oInputCompany.getValue() || oInputCompany.getValue().length < 1 || oInputCompany.getValue() > 10) {
+				oInputCompany.setValueState(sap.ui.core.ValueState.Error);
+			  bValid = false;
+			}
+			return bValid;
 		},
 		
 		onCancel: function(oEvent) {
@@ -65,7 +94,7 @@ sap.ui.define([
 				Building: "",
 				City: "",
 				PostalCode: "",
-				Country: "",
+				Country: "DE",
 				EmailAddress: "",
 				WebAddress: "",
 				PhoneNumber: "",

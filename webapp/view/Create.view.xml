@@ -1,10 +1,13 @@
 <mvc:View controllerName="com.oetker.demo.controller.Create" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc"
-	xmlns:footerbar="sap.ushell.ui.footerbar" xmlns:f="sap.ui.layout.form">
+	xmlns:footerbar="sap.ushell.ui.footerbar" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core">
 	<Page id="page" navButtonPress="onNavBack" showNavButton="{device>/system/phone}" title="Create New Business Partner">
 		<content>
 			<f:SimpleForm>
 				<Label text="Company Name"></Label>
-				<Input value="{newPartner>/CompanyName}"></Input>
+				<Input id="inputCompany" 
+				    placeholder="Enter a company name"
+					value="{newPartner>/CompanyName}" 
+					valueStateText="At least 3 characters"></Input>
 				<Label text="Business Partner Role"></Label>
 				<Input value="{newPartner>/BpRole}"></Input>
 				<Label text="Legal Form"></Label>
@@ -21,6 +24,11 @@
 				<Input value="{newPartner>/PostalCode}"></Input>
 				<Label text="Country"></Label>
 				<Input value="{newPartner>/Country}"></Input>
+				<ComboBox
+				  selectedKey="{newPartner>/Country}"
+				  items="{countries>/countries}">
+					<core:Item key="{countries>code}" text="{countries>name}"></core:Item>
+				</ComboBox>
 				<Label text="Email Address"></Label>
 				<Input value="{newPartner>/EmailAddress}"></Input>
 				<Label text="Phone Number"></Label>
@@ -31,6 +39,10 @@
 				<Input value="{newPartner>/WebAddress}"></Input>
 				<Label text="Address Type"></Label>
 				<Input value="{newPartner>/AddressType}"></Input>
+				<Label text="Address Validity Start Date"></Label>
+				<DatePicker value="{path: 'newPartner>/AddressValStartDate', type: 'sap.ui.model.type.Date'}"></DatePicker>
+				<Label text="Address Validity End Date"></Label>
+				<DatePicker value="{path: 'newPartner>/AddressValEndDate', type: 'sap.ui.model.type.Date'}"></DatePicker>
 			</f:SimpleForm>
 		</content>
 		<footer>
