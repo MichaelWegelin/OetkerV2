@@ -2,8 +2,9 @@
 sap.ui.define([
 	"com/oetker/demo/controller/BaseController",
 	"sap/ui/model/json/JSONModel",
-	"com/oetker/demo/model/formatter"
-], function(BaseController, JSONModel, formatter) {
+	"com/oetker/demo/model/formatter",
+	"sap/m/MessageBox"
+], function(BaseController, JSONModel, formatter, MessageBox) {
 	"use strict";
 
 	return BaseController.extend("com.oetker.demo.controller.Create", {
@@ -15,7 +16,25 @@ sap.ui.define([
 		onInit: function() {
 			this.getRouter().getRoute("create").attachPatternMatched(this._onObjectMatched, this);
 		},
-
+		
+		onSave: function(oEvent) {
+			var oNewPartner = this.getModel("newPartner").getData();
+			var oModel = this.getOwnerComponent().getModel();
+			oModel.create("/BusinessPartnerSet", oNewPartner, {
+				success: function(oData, oResponse) {
+					MessageBox.show("New Business Partner " + oData.BpId + " created",{
+        				icon: sap.m.MessageBox.Icon.SUCCESS,
+        				title: "Success"} );				
+				},
+				error: function(oError) {
+					MessageBox.alert(oError.responseText);
+				}
+			});
+		},
+		
+		onCancel: function(oEvent) {
+			this.onNavBack();	
+		},
 		/* =========================================================== */
 		/* event handlers                                              */
 		/* =========================================================== */
@@ -53,7 +72,7 @@ sap.ui.define([
 				FaxNumber: "",
 				AddressType: "02",
 				AddressValStartDate: new Date(),
-				AddressValeEndDate: new Date((new Date()).setFullYear(2090))
+				AddressValEndDate: new Date((new Date()).setFullYear(2090))
 			};
 			var oNewBusinessPartnerModel = new JSONModel(oNewBusinessPartner);
 			this.setModel(oNewBusinessPartnerModel, "newPartner");
